@@ -14,9 +14,4 @@ public interface ICommand<T> : IRequest<Result<T>>
 }
 
 
-public interface ICommandForList<T> : IRequest<IList<Result<T>>>
-    where T : class
-{
-}
-
 

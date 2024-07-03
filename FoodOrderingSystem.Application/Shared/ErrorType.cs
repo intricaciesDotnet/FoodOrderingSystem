@@ -5,5 +5,6 @@ public enum ErrorType
     None = 0,
     BadRequest = 1,
     Invalid = 2,
-    UnableToCreate = 3
+    UnableToCreate = 3,
+    InvalidId = 4
 }

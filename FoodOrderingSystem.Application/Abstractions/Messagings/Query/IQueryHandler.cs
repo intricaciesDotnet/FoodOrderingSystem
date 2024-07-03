@@ -4,14 +4,16 @@ using MediatR;
 
 namespace FoodOrderingSystem.Application.Abstractions.Messagings.Query;
 
-public interface IQueryHandler<TCommand> : IRequestHandler<TCommand, Result>
-    where TCommand : ICommand
+
+
+public interface IQueryHandler<ICommand> : IRequestHandler<IQuery, Result>
+    where ICommand : IQuery
 {
 }
 
 
-public interface IQueryHandler<TCommand, TResponse> : IRequestHandler<TCommand, Result<TResponse>>
-     where TCommand : ICommand<TResponse>
+public interface IQueryHandler<IQuery, TResponse> : IRequestHandler<IQuery, Result<TResponse>>
+     where IQuery : IQuery<TResponse>
     where TResponse : class
 
 {

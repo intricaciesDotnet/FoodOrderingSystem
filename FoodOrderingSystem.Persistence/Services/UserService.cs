@@ -49,4 +49,34 @@ public sealed class UserService(ISender sender) : IUserService
             return Result<IList<Core.Entities.User>>.Failure(ErrorType.BadRequest);
         }
     }
+
+    public async Task<IResult> GetUserByIdAsync(string id, CancellationToken cancellationToken)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            GetUserByIdQuery command = new GetUserByIdQuery(id);
+
+            Result<Core.Entities.User> userResult = await Sender.Send(command, cancellationToken);
+
+            return userResult.IsSuccess ?
+                userResult :
+                Result<IList<Core.Entities.User>>.Failure(ErrorType.BadRequest);
+
+
+        }
+        catch (UserException ex)
+        {
+            return Result<IList<Core.Entities.User>>.Failure(ErrorType.BadRequest);
+        }
+    }
+
+    public Task<IResult> UpdateUserAsync(UserDto userDto, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }

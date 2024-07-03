@@ -32,6 +32,21 @@ public class UserController(IUserService userService) : ControllerBase
 		}
     }
 
+    [HttpPut]
+    [Route("update-user")]
+    public async Task<IActionResult> UpdateUserAsync([FromQuery]string Id, [FromBody] UserDto userDto, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return Ok();
+        }
+        catch (UserNotCreatedException ex)
+        {
+            var response = Result<UserDto>.Failure(ErrorType.UnableToCreate);
+            return BadRequest(response);
+        }
+    }
+
     [HttpGet]
     [Route("all-users")]
     public async Task<IActionResult> GetAllUserAsync(CancellationToken cancellationToken)
@@ -45,6 +60,29 @@ public class UserController(IUserService userService) : ControllerBase
         catch (UserNotCreatedException ex)
         {
             var response = Result<UserDto>.Failure(ErrorType.UnableToCreate);
+            return BadRequest(response);
+        }
+    }
+
+    [HttpGet]
+    [Route("user-id")]
+    public async Task<IActionResult> GetUserByIdAsync([FromQuery]string Id, CancellationToken cancellationToken)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(Id))
+            {
+                throw new ArgumentException(nameof(Id));
+            }
+
+            Application.Shared.IResult list = await _userService.GetUserByIdAsync(Id, cancellationToken);
+
+            return list.IsSuccess ? Ok(list) : BadRequest(list);
+
+        }
+        catch (UserNotCreatedException ex)
+        {
+            var response = Result<UserDto>.Failure(ErrorType.InvalidId);
             return BadRequest(response);
         }
     }
