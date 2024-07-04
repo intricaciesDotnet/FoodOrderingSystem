@@ -11,7 +11,7 @@ namespace FoodOrderingSystem.Persistence.Services;
 public sealed class UserService(ISender sender) : IUserService
 {
     private readonly ISender Sender = sender;
-    public async Task<IResult> AddUserAsync(UserDto userDto, CancellationToken cancellationToken)
+    public async Task<IResult> AddAsync(UserDto userDto, CancellationToken cancellationToken)
     {
 		try
 		{
@@ -31,7 +31,7 @@ public sealed class UserService(ISender sender) : IUserService
 		}
     }
 
-    public async Task<IResult> GetAllUserAsync(CancellationToken cancellationToken)
+    public async Task<IResult> GetAllAsync(CancellationToken cancellationToken)
     {
 
         try
@@ -50,7 +50,7 @@ public sealed class UserService(ISender sender) : IUserService
         }
     }
 
-    public async Task<IResult> GetUserByIdAsync(string id, CancellationToken cancellationToken)
+    public async Task<IResult> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         try
         {
@@ -75,8 +75,31 @@ public sealed class UserService(ISender sender) : IUserService
         }
     }
 
-    public Task<IResult> UpdateUserAsync(UserDto userDto, CancellationToken cancellationToken)
+    public async Task<IResult> UpdateAsync(string Id, UserDto userDto, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        try
+        {
+            if (string.IsNullOrEmpty(Id))
+            {
+                throw new ArgumentNullException(nameof(Id));
+            }
+
+            UpdateUserCommand command = new UpdateUserCommand(Id, userDto);
+
+            Result<Core.Entities.User> userResult = await Sender.Send(command, cancellationToken);
+
+            if (userResult.IsSuccess)
+            {
+                IResult result = await GetByIdAsync(Id, cancellationToken);
+                return result;
+            }
+
+            return Result<Core.Entities.User>.Failure(ErrorType.BadRequest);
+
+        }
+        catch (UserException ex)
+        {
+            return Result<Core.Entities.User>.Failure(ErrorType.BadRequest);
+        }
     }
 }

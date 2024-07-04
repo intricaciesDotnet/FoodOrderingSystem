@@ -1,4 +1,4 @@
-﻿using FoodOrderingSystem.Application.DTOs;
+﻿    using FoodOrderingSystem.Application.DTOs;
 using FoodOrderingSystem.Application.Exceptions;
 using FoodOrderingSystem.Application.Shared;
 using FoodOrderingSystem.Persistence.Abstractions.Interfaces;
@@ -19,7 +19,7 @@ public class UserController(IUserService userService) : ControllerBase
 		try
 		{
             UserDto validDto = userDto ?? throw new ArgumentNullException(nameof(userDto));
-            Application.Shared.IResult userResult = await _userService.AddUserAsync(validDto, cancellationToken);
+            Application.Shared.IResult userResult = await _userService.AddAsync(validDto, cancellationToken);
 
             return userResult.IsSuccess ?
                 Ok(userResult) :
@@ -38,6 +38,7 @@ public class UserController(IUserService userService) : ControllerBase
     {
         try
         {
+            await _userService.UpdateAsync(Id, userDto, cancellationToken);
             return Ok();
         }
         catch (UserNotCreatedException ex)
@@ -53,7 +54,7 @@ public class UserController(IUserService userService) : ControllerBase
     {
         try
         {
-            Application.Shared.IResult list = await _userService.GetAllUserAsync(cancellationToken);  
+            Application.Shared.IResult list = await _userService.GetAllAsync(cancellationToken);  
             return list.IsSuccess ? Ok(list) : BadRequest(list);
            
         }
@@ -75,7 +76,7 @@ public class UserController(IUserService userService) : ControllerBase
                 throw new ArgumentException(nameof(Id));
             }
 
-            Application.Shared.IResult list = await _userService.GetUserByIdAsync(Id, cancellationToken);
+            Application.Shared.IResult list = await _userService.GetByIdAsync(Id, cancellationToken);
 
             return list.IsSuccess ? Ok(list) : BadRequest(list);
 
