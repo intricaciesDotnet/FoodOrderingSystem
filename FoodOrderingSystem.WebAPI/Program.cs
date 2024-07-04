@@ -1,4 +1,7 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using FoodOrderingSystem.Application.ServiceRegisterations;
+using FoodOrderingSystem.Application.Validators;
 using FoodOrderingSystem.Infrastructure.Modals;
 using FoodOrderingSystem.Infrastructure.ServiceRegisterations;
 using FoodOrderingSystem.Persistence.ServiceRegisterations;
@@ -8,11 +11,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<FoodOrderDatabaseSettings>(
     builder.Configuration.GetSection(FoodOrderingSystem.WebAPI.Consts.Constants.Name));
 
+
 builder.Services.AddMediatR(opt => 
     opt.RegisterServicesFromAssembly
     (FoodOrderingSystem.Application.Abstractions.AssemblyReference.Assembly));
 
 builder.Services.AddControllers();
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<UserDtoValidator>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
