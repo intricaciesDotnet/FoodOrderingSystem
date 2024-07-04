@@ -1,4 +1,6 @@
-﻿using FoodOrderingSystem.Application.Services;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using FoodOrderingSystem.Application.Validators;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FoodOrderingSystem.Application.ServiceRegisterations;
@@ -11,6 +13,9 @@ public static class Application
         services.AddMediatR(opt => 
             opt.RegisterServicesFromAssembly(assembly));
 
+        services.AddAutoMapper(typeof(Application));
+
+        services.AddValidatorsFromAssemblyContaining<UserDtoValidator>();
 
         return services;
     }

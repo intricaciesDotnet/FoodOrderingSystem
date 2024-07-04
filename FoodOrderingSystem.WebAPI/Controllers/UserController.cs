@@ -38,12 +38,13 @@ public class UserController(IUserService userService) : ControllerBase
     {
         try
         {
-            await _userService.UpdateAsync(Id, userDto, cancellationToken);
-            return Ok();
+            Application.Shared.IResult updatedUser = await _userService.UpdateAsync(Id, userDto, cancellationToken);
+            return updatedUser.IsSuccess ? Ok(updatedUser) : BadRequest(updatedUser);
+            
         }
-        catch (UserNotCreatedException ex)
+        catch (FoodOrderException ex)
         {
-            var response = Result<UserDto>.Failure(ErrorType.UnableToCreate);
+            var response = Result<FoodOrderingSystem.Core.Entities.User>.Failure(ErrorType.UnableToCreate);
             return BadRequest(response);
         }
     }
@@ -58,9 +59,9 @@ public class UserController(IUserService userService) : ControllerBase
             return list.IsSuccess ? Ok(list) : BadRequest(list);
            
         }
-        catch (UserNotCreatedException ex)
+        catch (FoodOrderException ex)
         {
-            var response = Result<UserDto>.Failure(ErrorType.UnableToCreate);
+            var response = Result<FoodOrderingSystem.Core.Entities.User>.Failure(ErrorType.UnableToCreate);
             return BadRequest(response);
         }
     }
@@ -81,9 +82,9 @@ public class UserController(IUserService userService) : ControllerBase
             return list.IsSuccess ? Ok(list) : BadRequest(list);
 
         }
-        catch (UserNotCreatedException ex)
+        catch (FoodOrderException ex)
         {
-            var response = Result<UserDto>.Failure(ErrorType.InvalidId);
+            var response = Result<FoodOrderingSystem.Core.Entities.User>.Failure(ErrorType.UnableToCreate);
             return BadRequest(response);
         }
     }

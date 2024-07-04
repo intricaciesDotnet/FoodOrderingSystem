@@ -32,7 +32,6 @@ public sealed class CreateFoodItemCommandHandler(IFoodItemMongoDbContext foodIte
         }
 		catch (FoodOrderException ex)
 		{
-
 			return Result<Core.Entities.FoodItem>.Failure(ErrorType.UnableToCreate);
 		}
     }

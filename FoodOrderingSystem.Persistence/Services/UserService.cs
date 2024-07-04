@@ -15,7 +15,7 @@ public sealed class UserService(ISender sender) : IUserService
     {
 		try
 		{
-            var validDto = userDto ?? throw new ArgumentNullException(nameof(userDto));
+            UserDto validDto = userDto ?? throw new ArgumentNullException(nameof(userDto));
 
             CreateUserCommand command = new CreateUserCommand(userDto);
 
@@ -25,7 +25,7 @@ public sealed class UserService(ISender sender) : IUserService
                 userResult :
                 Result<UserDto>.Failure(ErrorType.BadRequest);
         }
-		catch (UserNotCreatedException ex)
+		catch (FoodOrderException ex)
 		{
 			return Result<UserDto>.Failure(ErrorType.BadRequest);
 		}
@@ -44,7 +44,7 @@ public sealed class UserService(ISender sender) : IUserService
                 userListResult :
                 Result<IList<Core.Entities.User>>.Failure(ErrorType.BadRequest);
         }
-        catch (UserException ex)
+        catch (FoodOrderException ex)
         {
             return Result<IList<Core.Entities.User>>.Failure(ErrorType.BadRequest);
         }
@@ -69,7 +69,7 @@ public sealed class UserService(ISender sender) : IUserService
 
 
         }
-        catch (UserException ex)
+        catch (FoodOrderException ex)
         {
             return Result<IList<Core.Entities.User>>.Failure(ErrorType.BadRequest);
         }
@@ -88,16 +88,12 @@ public sealed class UserService(ISender sender) : IUserService
 
             Result<Core.Entities.User> userResult = await Sender.Send(command, cancellationToken);
 
-            if (userResult.IsSuccess)
-            {
-                IResult result = await GetByIdAsync(Id, cancellationToken);
-                return result;
-            }
-
-            return Result<Core.Entities.User>.Failure(ErrorType.BadRequest);
+            return userResult.IsSuccess ?
+                userResult :
+                Result<Core.Entities.User>.Failure(ErrorType.BadRequest);
 
         }
-        catch (UserException ex)
+        catch (FoodOrderException ex)
         {
             return Result<Core.Entities.User>.Failure(ErrorType.BadRequest);
         }
