@@ -21,6 +21,13 @@ public class UserDtoValidator : AbstractValidator<UserDto>
             .WithMessage(Messages.EmailValidator)
             .Matches(RegexPatterns.Email)
             .WithMessage(Messages.InvalidEmailValidator);
-            
+
+        RuleFor(x => x.PhoneNumber)
+            .NotNull()
+            .NotEmpty()
+            .WithMessage(Messages.PhoneValidator)
+            .MinimumLength(10);
+
+       
     }
 }

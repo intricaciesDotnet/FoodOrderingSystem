@@ -1,4 +1,6 @@
-﻿namespace FoodOrderingSystem.Application.DTOs;
+﻿using FoodOrderingSystem.Core.Entities;
+
+namespace FoodOrderingSystem.Application.DTOs;
 
 public record UserDto(
     string Name,

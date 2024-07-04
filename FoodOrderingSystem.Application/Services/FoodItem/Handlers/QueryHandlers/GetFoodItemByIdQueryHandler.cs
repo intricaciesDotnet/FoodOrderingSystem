@@ -15,16 +15,19 @@ public sealed class GetFoodItemByIdQueryHandler(IFoodItemMongoDbContext foodItem
     {
         try
         {
-            GetFoodItemByIdQuery userRequest = request ?? throw new NotImplementedException(nameof(request));
+            GetFoodItemByIdQuery userRequest = request ?? throw new FoodOrderException(nameof(request));
 
             Core.Entities.FoodItem result = await _foodItem
                 .FoodItems
                 .Find(x => x.Id == userRequest.Id)
                 .FirstOrDefaultAsync();
 
+            if (result == null)
+                throw new FoodOrderException(nameof(result));
+
             return Result<Core.Entities.FoodItem>.Success(result);
         }
-        catch (FoodOrderException ex)
+        catch (FoodOrderException)
         {
             return Result<Core.Entities.FoodItem>.Failure(ErrorType.UnableToCreate);
         }

@@ -6,7 +6,7 @@ public static class Messages
     public const string InvalidEmailValidator = "Invalid Email";
     public const string NameValidator = "Name is required";
     public const string PasswordValidator = "Password is required";
-    public const string PhoneValidator = "Phonenumber is required";
+    public const string PhoneValidator = "Phone number is required";
 
 
     public const int MinLen = 3;

@@ -13,4 +13,5 @@ public class User
     public string Password { get; set; }
     public string PhoneNumber { get; set; }
     public List<string> Addresses { get; set; }
+    public Address GeoLocation { get; set; }
 }
