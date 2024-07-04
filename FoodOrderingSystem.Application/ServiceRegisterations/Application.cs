@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
+using FoodOrderingSystem.Application.Abstractions.Externals;
 using FoodOrderingSystem.Application.Validators;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +17,10 @@ public static class Application
         services.AddAutoMapper(typeof(Application));
 
         services.AddValidatorsFromAssemblyContaining<UserDtoValidator>();
+
+        services.AddHttpClient();
+
+        services.AddTransient<IGeoService, GeoService>();
 
         return services;
     }

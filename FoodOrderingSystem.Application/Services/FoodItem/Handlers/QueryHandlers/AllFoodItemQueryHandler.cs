@@ -16,7 +16,7 @@ public sealed class AllFoodItemQueryHandler(IFoodItemMongoDbContext foodItem) : 
     {
 		try
 		{
-            AllFoodItemsQuery valid = request ?? throw new ArgumentNullException(nameof(request));
+            AllFoodItemsQuery valid = request ?? throw new FoodOrderException(nameof(request));
 
             List<Core.Entities.FoodItem> list = await _foodItem
                 .FoodItems
@@ -25,13 +25,13 @@ public sealed class AllFoodItemQueryHandler(IFoodItemMongoDbContext foodItem) : 
 
             if (list == null)
             {
-                return Result<IList<Core.Entities.FoodItem>>.Failure(ErrorType.None);
+                throw new FoodOrderException(nameof(list));
             }
 
             return Result<IList<Core.Entities.FoodItem>>.Success(list);
 
         }
-		catch (FoodOrderException ex)
+		catch (FoodOrderException)
 		{
 			return Result<IList<Core.Entities.FoodItem>>.Failure(ErrorType.None);
 		}
