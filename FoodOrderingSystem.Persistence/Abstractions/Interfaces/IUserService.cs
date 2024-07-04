@@ -1,13 +1,9 @@
-﻿using FoodOrderingSystem.Application.DTOs;
-using FoodOrderingSystem.Application.Shared;
+﻿
+using FoodOrderingSystem.Application.DTOs;
 
 namespace FoodOrderingSystem.Persistence.Abstractions.Interfaces;
 
-public interface IUserService
+public interface IUserService : IBaseService<UserDto>
 {
-    Task<IResult> AddUserAsync(UserDto userDto, CancellationToken cancellationToken);
-    Task<IResult> GetAllUserAsync(CancellationToken cancellationToken);
-    Task<IResult> GetUserByIdAsync(string id, CancellationToken cancellationToken);
-    Task<IResult> UpdateUserAsync(UserDto userDto, CancellationToken cancellationToken);
-
+   
 }

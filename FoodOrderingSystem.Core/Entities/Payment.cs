@@ -1,11 +1,16 @@
-﻿namespace FoodOrderingSystem.Core.Entities;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+
+namespace FoodOrderingSystem.Core.Entities;
 
 public class Payment
 {
-    public Guid PaymentId { get; set; }
-    public Guid OrderId { get; set; }
-    public DateTime PaymentDate { get; set; }
-    public decimal PaymentAmount { get; set; }
-    public string PaymentMethod { get; set; }
-    public string PaymentStatus { get; set; }
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string Id { get; set; }
+    public string OrderId { get; set; }
+    public DateTime Date { get; set; }
+    public decimal Amount { get; set; }
+    public string  Method { get; set; }
+    public bool Status { get; set; }
 }

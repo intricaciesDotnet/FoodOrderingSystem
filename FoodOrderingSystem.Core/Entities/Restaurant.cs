@@ -1,9 +1,14 @@
-﻿namespace FoodOrderingSystem.Core.Entities;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+
+namespace FoodOrderingSystem.Core.Entities;
 
 public class Restaurant
 {
-    public Guid RestaurantId { get; set; }
-    public string RestaurantName { get; set; }
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string Id { get; set; }
+    public string Name { get; set; }
     public string Address { get; set; }
     public string PhoneNumber { get; set; }
     public string Email { get; set; }

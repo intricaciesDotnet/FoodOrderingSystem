@@ -1,9 +1,12 @@
 using FoodOrderingSystem.Application.ServiceRegisterations;
-using FoodOrderingSystem.Infrastructure.Data;
+using FoodOrderingSystem.Infrastructure.Modals;
 using FoodOrderingSystem.Infrastructure.ServiceRegisterations;
 using FoodOrderingSystem.Persistence.ServiceRegisterations;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<FoodOrderDatabaseSettings>(
+    builder.Configuration.GetSection(FoodOrderingSystem.WebAPI.Consts.Constants.Name));
 
 builder.Services.AddMediatR(opt => 
     opt.RegisterServicesFromAssembly

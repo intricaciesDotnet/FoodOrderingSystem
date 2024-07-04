@@ -1,5 +1,5 @@
-﻿using FoodOrderingSystem.Application.Abstractions.Messagings.Command;
+﻿using FoodOrderingSystem.Application.Abstractions.Messagings.Query;
 
 namespace FoodOrderingSystem.Application.Services.User.Query;
 
-public sealed record AllUserQuery : ICommand<IList<FoodOrderingSystem.Core.Entities.User>>;
+public sealed record AllUserQuery : IQuery<IList<FoodOrderingSystem.Core.Entities.User>>;
