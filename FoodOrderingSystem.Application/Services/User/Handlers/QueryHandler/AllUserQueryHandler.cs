@@ -1,5 +1,4 @@
-﻿using FoodOrderingSystem.Application.Abstractions;
-using FoodOrderingSystem.Application.Abstractions.Interfaces;
+﻿using FoodOrderingSystem.Application.Abstractions.Interfaces;
 using FoodOrderingSystem.Application.Abstractions.Messagings.Query;
 using FoodOrderingSystem.Application.Exceptions;
 using FoodOrderingSystem.Application.Services.User.Query;
@@ -24,7 +23,7 @@ public sealed class AllUserQueryHandler(IUserMongoDbContext userMongo) : IQueryH
             return Result<IList<Core.Entities.User>>.Success(list);
 
         }
-        catch (UserNotCreatedException ex)
+        catch (UserNotCreatedException)
         {
             return Result<IList<Core.Entities.User>>.Failure(ErrorType.BadRequest);
         }

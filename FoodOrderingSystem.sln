@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodOrderingSystem.Infrastr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodOrderingSystem.Application", "FoodOrderingSystem.Application\FoodOrderingSystem.Application.csproj", "{4003762D-179F-43B4-A5E4-BDA9E0D1F415}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodOrderingSystem.WebAPI", "FoodOrderingSystem.WebAPI\FoodOrderingSystem.WebAPI.csproj", "{119FDE88-E514-41FD-A4BA-CA2BDB48CE14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodOrderingSystem.WebAPI", "FoodOrderingSystem.WebAPI\FoodOrderingSystem.WebAPI.csproj", "{119FDE88-E514-41FD-A4BA-CA2BDB48CE14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodOrderingSystem.Persistence", "FoodOrderingSystem.Persistence\FoodOrderingSystem.Persistence.csproj", "{C5E04BDB-756E-4E4D-AE8A-08B8A569E6F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodOrderingSystem.Persistence", "FoodOrderingSystem.Persistence\FoodOrderingSystem.Persistence.csproj", "{C5E04BDB-756E-4E4D-AE8A-08B8A569E6F8}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2F29B351-3398-4FFD-91F0-F434216C2730}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{C5E04BDB-756E-4E4D-AE8A-08B8A569E6F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5E04BDB-756E-4E4D-AE8A-08B8A569E6F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5E04BDB-756E-4E4D-AE8A-08B8A569E6F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F29B351-3398-4FFD-91F0-F434216C2730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F29B351-3398-4FFD-91F0-F434216C2730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F29B351-3398-4FFD-91F0-F434216C2730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F29B351-3398-4FFD-91F0-F434216C2730}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

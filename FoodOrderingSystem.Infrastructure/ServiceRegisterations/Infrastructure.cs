@@ -11,14 +11,13 @@ public static class Infrastructure
     public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services,
          IConfigurationManager configuration)
     {
-       
-        services.AddScoped<BaseMongoDbContext>();
-        services.AddScoped<IFoodItemMongoDbContext, FoodItemMongoDbContext>();
-        services.AddScoped<IOrderItemMongoDbContext, OrderItemMongoDbContext>();
-        services.AddScoped<IOrdersMongoDbContext, OrderMongoDbContext>();
-        services.AddScoped<IPaymentMongoDbContext, PaymentMongoDbContext>();
-        services.AddScoped<IRestaurantMongoDbContext, RestaurantMongoDbContext>();
-        services.AddScoped<IUserMongoDbContext, UserMongoDbContext>();
+        services.AddScoped<BaseMongoDbContext>(_ => new(configuration));
+        services.AddScoped<IFoodItemMongoDbContext, FoodItemMongoDbContext>(_ => new(configuration,null!));
+        services.AddScoped<IOrderItemMongoDbContext, OrderItemMongoDbContext>(_ => new(configuration, null!));
+        services.AddScoped<IOrdersMongoDbContext, OrderMongoDbContext>(_ => new(configuration, null!));
+        services.AddScoped<IPaymentMongoDbContext, PaymentMongoDbContext>(_ => new(configuration, null!));
+        services.AddScoped<IRestaurantMongoDbContext, RestaurantMongoDbContext>(_ => new(configuration, null!));
+        services.AddScoped<IUserMongoDbContext, UserMongoDbContext>(_ => new(configuration, null!));
 
         return services;
     }
